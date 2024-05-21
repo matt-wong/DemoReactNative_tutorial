@@ -1,17 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useState } from 'react';
+import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import QuotaFetcher from './components/quotaFetcher';
 
 export default function App() {
+
+  const [enteredGoalText, setEnteredGoalText] = useState('');
+  const [courseGoals, setCourseGoals] = useState([]);
+
+  function goalInputHandler(enteredText){
+    console.log(enteredText);
+    setEnteredGoalText(enteredText);
+  }
+
+  function goalButtonHandler(){
+    console.log(enteredGoalText);
+    setCourseGoals(currentCourseGoals => [...currentCourseGoals, enteredGoalText]);
+  }
+
   return (
     <View style={styles.app}>
-      <View style={styles.inputContainer}>
-        <TextInput style={styles.textInput} placeholder='Goal'></TextInput>
-        <Button title='Add Goal'></Button>
-      </View>
-      
-      <View>
-        <Text>List of Goals...</Text>
-      </View>
+      <QuotaFetcher></QuotaFetcher>
     </View>
   );
 }
@@ -19,16 +27,5 @@ export default function App() {
 const styles = StyleSheet.create({
  app: {
   padding: 50,
- },
- inputContainer: {
-  display: 'flex',
-  flexDirection: 'row'
-},
-textInput: {
-  borderWidth: 1,
-  borderColor: '#cccccc',
-  width: '80%',
-  marginRight: 5,
-  paddingHorizontal: 10
-}
+ }
 });
